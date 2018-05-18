@@ -16,8 +16,22 @@
               {% endif %}
             {% endif %}
           {% endfor %}
+          {% for child in site.data.menu %}
+            {% if child['title'] %}
+              {% if child['parent'] %}
+                {% if child['parent'] == node.path %}
+                  <a class="mdl-navigation__link child" href="{{ child['url'] | absolute_url }}">{{ child.title }}</a>
+                {% endif %}
+              {% endif %}
+            {% endif %}
+          {% endfor %}
         {% endif %}
       {% endunless %}
     {% endif %}
   {% endif %}
+{% endfor %}
+{% for page in site.data.menu %}
+{% unless page['parent'] %}
+<a class="mdl-navigation__link parent" href="{{ page['url']  }}">{{ page['title'] }}</a>
+{% endunless %}
 {% endfor %}
